@@ -5,14 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab_rab_4_2_CherevkoG.S_BPI_23_02.View"
         mc:Ignorable="d"
-        Title="Должности" Height="450" Width="600">
+        Title="Должности" Height="450" Width="600"
+        Style="{DynamicResource CustomWindowStyle}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="#FFE4E0E0">
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
             <Button Content="Добавить" Height="25" Margin="10,10,5,10"
                     Command="{Binding AddRole}"/>
             <Button Content="Редактировать" Height="25" Margin="10,10,5,10"
@@ -21,7 +22,7 @@
                     Command="{Binding DeleteRole}"/>
         </StackPanel>
 
-        <ListView Grid.Row="1" ItemsSource="{Binding ListRole}" Background="#FFD3CDCD"
+        <ListView Grid.Row="1" ItemsSource="{Binding ListRole}"
                   SelectedItem="{Binding SelectedRole}">
             <ListView.View>
                 <GridView>
