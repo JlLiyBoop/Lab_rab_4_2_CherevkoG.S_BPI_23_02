@@ -30,7 +30,6 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.ViewModel
 
         public PersonViewModel()
         {
-            // Инициализируем список ролей
             roles = new RoleViewModel().ListRole.ToList();
 
             ListPerson.Add(new Person { Id = 1, RoleId = 1, FirstName = "Иван", LastName = "Иванов", Birthday = new DateTime(1980, 02, 28) });
