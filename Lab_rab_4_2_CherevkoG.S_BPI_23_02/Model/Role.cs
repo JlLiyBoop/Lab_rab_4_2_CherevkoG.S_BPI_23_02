@@ -6,9 +6,10 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.Model
 {
     public class Role : INotifyPropertyChanged
     {
+        private string nameRole;
+
         public int Id { get; set; }
 
-        private string nameRole;
         public string NameRole
         {
             get { return nameRole; }
@@ -40,4 +41,3 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.Model
         }
     }
 }
-

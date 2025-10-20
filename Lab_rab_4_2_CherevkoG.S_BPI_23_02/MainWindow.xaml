@@ -12,14 +12,12 @@
                 <Separator/>
                 <MenuItem Header="Выход" Click="MenuExit_Click"/>
             </MenuItem>
-            <Menu VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5">
-                <MenuItem Header="Темы">
+            <MenuItem Header="Темы">
                     <MenuItem Header="Доступные темы" IsEnabled="False"/>
                     <MenuItem Header="Светлая" Click="ChangeTheme" Uid="0"/>
                     <MenuItem Header="Темная" Click="ChangeTheme" Uid="1"/>
                 </MenuItem>
             </Menu>
-        </Menu>
 
         <Grid>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" 

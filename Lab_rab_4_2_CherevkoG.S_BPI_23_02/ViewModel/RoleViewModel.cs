@@ -11,6 +11,8 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.ViewModel
     public class RoleViewModel : INotifyPropertyChanged
     {
         private Role selectedRole;
+        private DataService dataService;
+
         public Role SelectedRole
         {
             get { return selectedRole; }
@@ -18,25 +20,45 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.ViewModel
             {
                 selectedRole = value;
                 OnPropertyChanged("SelectedRole");
-                EditRole.CanExecute(true);
+                if (EditRole != null) EditRole.CanExecute(true);
             }
         }
 
-        public ObservableCollection<Role> ListRole { get; set; } = new ObservableCollection<Role>();
+        public ObservableCollection<Role> ListRole { get; set; }
 
         public RoleViewModel()
         {
-            ListRole.Add(new Role(1, "Директор"));
-            ListRole.Add(new Role(2, "Бухгалтер"));
-            ListRole.Add(new Role(3, "Менеджер"));
+            dataService = new DataService();
+            ListRole = dataService.LoadRoles();
+
+            if (ListRole.Count == 0)
+            {
+                InitializeDefaultRoles();
+                SaveRoles();
+            }
+        }
+
+        private void InitializeDefaultRoles()
+        {
+            ListRole.Add(new Role { Id = 1, NameRole = "Директор" });
+            ListRole.Add(new Role { Id = 2, NameRole = "Бухгалтер" });
+            ListRole.Add(new Role { Id = 3, NameRole = "Менеджер" });
+        }
+
+        private void SaveRoles()
+        {
+            dataService.SaveRoles(ListRole);
         }
 
         public int MaxId()
         {
             int max = 0;
-            foreach (var r in ListRole)
+            foreach (var r in this.ListRole)
             {
-                if (max < r.Id) max = r.Id;
+                if (max < r.Id)
+                {
+                    max = r.Id;
+                }
             }
             return max;
         }
@@ -47,22 +69,25 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.ViewModel
             get
             {
                 return addRole ??
-                  (addRole = new RelayCommand(obj =>
-                  {
-                      WindowNewRole wnRole = new WindowNewRole
-                      {
-                          Title = "Новая должность",
-                      };
-                      int maxIdRole = MaxId() + 1;
-                      Role role = new Role { Id = maxIdRole };
-                      wnRole.DataContext = role;
+                    (addRole = new RelayCommand(obj =>
+                    {
+                        WindowNewRole wnRole = new WindowNewRole
+                        {
+                            Title = "Новая должность",
+                        };
 
-                      if (wnRole.ShowDialog() == true)
-                      {
-                          ListRole.Add(role);
-                      }
-                      SelectedRole = role;
-                  }));
+                        int maxIdRole = MaxId() + 1;
+                        Role role = new Role { Id = maxIdRole };
+                        wnRole.DataContext = role;
+
+                        if (wnRole.ShowDialog() == true)
+                        {
+                            ListRole.Add(role);
+                            SaveRoles();
+                        }
+
+                        SelectedRole = role;
+                    }));
             }
         }
 
@@ -72,21 +97,25 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.ViewModel
             get
             {
                 return editRole ??
-                  (editRole = new RelayCommand(obj =>
-                  {
-                      WindowNewRole wnRole = new WindowNewRole
-                      {
-                          Title = "Редактирование должности",
-                      };
-                      Role role = SelectedRole;
-                      Role tempRole = role.ShallowCopy();
-                      wnRole.DataContext = tempRole;
+                    (editRole = new RelayCommand(obj =>
+                    {
+                        WindowNewRole wnRole = new WindowNewRole
+                        {
+                            Title = "Редактирование должности",
+                        };
 
-                      if (wnRole.ShowDialog() == true)
-                      {
-                          role.NameRole = tempRole.NameRole;
-                      }
-                  }, (obj) => SelectedRole != null && ListRole.Count > 0));
+                        Role role = SelectedRole;
+                        Role tempRole = new Role();
+                        tempRole = role.ShallowCopy();
+                        wnRole.DataContext = tempRole;
+
+                        if (wnRole.ShowDialog() == true)
+                        {
+                            role.NameRole = tempRole.NameRole;
+                            SaveRoles();
+                        }
+                    },
+                    (obj) => SelectedRole != null && ListRole.Count > 0));
             }
         }
 
@@ -96,24 +125,27 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.ViewModel
             get
             {
                 return deleteRole ??
-                  (deleteRole = new RelayCommand(obj =>
-                  {
-                      Role role = SelectedRole;
-                      MessageBoxResult result = MessageBox.Show(
-                          "Удалить данные по должности: " + role.NameRole,
-                          "Предупреждение",
-                          MessageBoxButton.OKCancel,
-                          MessageBoxImage.Warning
-                      );
-                      if (result == MessageBoxResult.OK)
-                      {
-                          ListRole.Remove(role);
-                      }
-                  }, (obj) => SelectedRole != null && ListRole.Count > 0));
+                    (deleteRole = new RelayCommand(obj =>
+                    {
+                        Role role = SelectedRole;
+                        MessageBoxResult result = MessageBox.Show(
+                            "Удалить данные по должности: " + role.NameRole,
+                            "Предупреждение",
+                            MessageBoxButton.OKCancel,
+                            MessageBoxImage.Warning);
+
+                        if (result == MessageBoxResult.OK)
+                        {
+                            ListRole.Remove(role);
+                            SaveRoles();
+                        }
+                    },
+                    (obj) => SelectedRole != null && ListRole.Count > 0));
             }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

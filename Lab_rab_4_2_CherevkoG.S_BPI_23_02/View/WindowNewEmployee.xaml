@@ -23,7 +23,7 @@
         <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Id}" IsReadOnly="True" Margin="5"/>
 
         <Label Grid.Row="1" Grid.Column="0" Content="Должность:"/>
-        <ComboBox x:Name="CbRole" Grid.Row="1" Grid.Column="1" 
+        <ComboBox x:Name="cbRole" Grid.Row="1" Grid.Column="1" 
                   DisplayMemberPath="NameRole" SelectedValuePath="Id"
                   Margin="5" Height="25"/>
 
@@ -38,7 +38,7 @@
 
         <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Сохранить" IsDefault="True" Click="BtnSave_Click" Width="80" Margin="5"/>
-            <Button Content="Отмена" IsCancel="True" Width="80" Margin="5"/>
+            <Button Content="Отмена" IsCancel="True" Click="BtnCancel_Click" Width="80" Margin="5"/>
         </StackPanel>
     </Grid>
 </Window>

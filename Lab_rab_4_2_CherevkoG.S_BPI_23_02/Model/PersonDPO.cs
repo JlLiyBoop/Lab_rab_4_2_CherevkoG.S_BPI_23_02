@@ -1,16 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Lab_rab_4_2_CherevkoG.S_BPI_23_02.ViewModel;
 
 
 namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.Model
 {
     public class PersonDpo : INotifyPropertyChanged
     {
+        private string _roleName;
+        private string firstName;
+        private string lastName;
+        private DateTime birthday;
+
         public int Id { get; set; }
 
-        private string _roleName;
         public string RoleName
         {
             get { return _roleName; }
@@ -21,7 +25,6 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.Model
             }
         }
 
-        private string firstName;
         public string FirstName
         {
             get { return firstName; }
@@ -32,7 +35,6 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.Model
             }
         }
 
-        private string lastName;
         public string LastName
         {
             get { return lastName; }
@@ -43,7 +45,6 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.Model
             }
         }
 
-        private DateTime birthday;
         public DateTime Birthday
         {
             get { return birthday; }
@@ -70,12 +71,13 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.Model
             return (PersonDpo)this.MemberwiseClone();
         }
 
-        public PersonDpo CopyFromPerson(Person person, List<Role> roles)
+        public PersonDpo CopyFromPerson(Person person)
         {
             PersonDpo perDpo = new PersonDpo();
+            RoleViewModel vmRole = new RoleViewModel();
             string role = string.Empty;
 
-            foreach (var r in roles)
+            foreach (var r in vmRole.ListRole)
             {
                 if (r.Id == person.RoleId)
                 {
@@ -92,9 +94,9 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.Model
                 perDpo.LastName = person.LastName;
                 perDpo.Birthday = person.Birthday;
             }
+
             return perDpo;
         }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
 

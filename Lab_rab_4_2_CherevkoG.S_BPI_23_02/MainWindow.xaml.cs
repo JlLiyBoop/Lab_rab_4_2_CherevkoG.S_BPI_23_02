@@ -10,7 +10,7 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02
         {
             InitializeComponent();
 
-            ThemesController.SetTheme(ThemesController.ThemeType.Dark);
+            ThemesController.SetTheme(ThemesController.ThemeType.Light);
         }
         private void ChangeTheme(object sender, RoutedEventArgs e)
         {
