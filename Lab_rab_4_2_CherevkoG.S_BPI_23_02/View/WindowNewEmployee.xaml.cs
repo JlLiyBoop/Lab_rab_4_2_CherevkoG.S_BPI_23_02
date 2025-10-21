@@ -12,13 +12,14 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.View
         public WindowNewEmployee()
         {
             InitializeComponent();
+            DataContext = new EmployeeDialogViewModel(this);
             Loaded += WindowNewEmployee_Loaded;
         }
 
         private void WindowNewEmployee_Loaded(object sender, RoutedEventArgs e)
         {
-            var roleViewModel = new RoleViewModel();
-            cbRole.ItemsSource = roleViewModel.ListRole;
+            var viewModel = DataContext as EmployeeDialogViewModel;
+            viewModel?.LoadRoles();
 
             var person = DataContext as PersonDpo;
             if (person != null && !string.IsNullOrEmpty(person.RoleName))
@@ -33,15 +34,21 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.View
                 }
             }
         }
+    }
 
-        private void BtnSave_Click(object sender, RoutedEventArgs e)
+    public class EmployeeDialogViewModel : DialogViewModel
+    {
+        private WindowNewEmployee dialogWindow;
+
+        public EmployeeDialogViewModel(WindowNewEmployee window) : base(window)
         {
-            DialogResult = true;
+            dialogWindow = window;
         }
 
-        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        public void LoadRoles()
         {
-            DialogResult = false;
+            var roleViewModel = new RoleViewModel();
+            dialogWindow.CbRole.ItemsSource = roleViewModel.ListRole;
         }
     }
 }

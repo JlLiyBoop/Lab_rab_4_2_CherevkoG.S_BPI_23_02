@@ -70,6 +70,7 @@
     <Compile Include="Themes\LightTheme.xaml.cs">
       <DependentUpon>LightTheme.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PersonViewModel.cs" />
     <Compile Include="ViewModel\RoleViewModel.cs" />
     <Compile Include="View\WindowNewRole.xaml.cs">

@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Lab_rab_4_2_CherevkoG.S_BPI_23_02.Helper;
 
 namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.View
 {
@@ -7,16 +8,43 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.View
         public WindowNewRole()
         {
             InitializeComponent();
+            DataContext = new DialogViewModel(this);
+        }
+    }
+
+    public class DialogViewModel
+    {
+        private Window dialogWindow;
+
+        public DialogViewModel(Window window)
+        {
+            dialogWindow = window;
         }
 
-        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        private RelayCommand saveCommand;
+        public RelayCommand SaveCommand
         {
-            DialogResult = true;
+            get
+            {
+                return saveCommand ??
+                (saveCommand = new RelayCommand(obj =>
+                {
+                    dialogWindow.DialogResult = true;
+                }));
+            }
         }
 
-        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        private RelayCommand cancelCommand;
+        public RelayCommand CancelCommand
         {
-            DialogResult = false;
+            get
+            {
+                return cancelCommand ??
+                (cancelCommand = new RelayCommand(obj =>
+                {
+                    dialogWindow.DialogResult = false;
+                }));
+            }
         }
     }
 }
