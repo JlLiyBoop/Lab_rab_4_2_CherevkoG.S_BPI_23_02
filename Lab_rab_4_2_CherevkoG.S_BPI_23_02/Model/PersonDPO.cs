@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
+using Lab_rab_4_2_CherevkoG.S_BPI_23_02.Helper;
 using Lab_rab_4_2_CherevkoG.S_BPI_23_02.ViewModel;
 
 
@@ -12,6 +14,7 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.Model
         private string firstName;
         private string lastName;
         private DateTime birthday;
+        private Window dialogWindow;
 
         public int Id { get; set; }
 
@@ -56,7 +59,10 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.Model
         }
 
         public PersonDpo() { }
-
+        public void SetDialogWindow(Window window)
+        {
+            dialogWindow = window;
+        }
         public PersonDpo(int id, string roleName, string firstName, string lastName, DateTime birthday)
         {
             this.Id = id;
@@ -65,7 +71,37 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.Model
             this.LastName = lastName;
             this.Birthday = birthday;
         }
+        private RelayCommand saveCommand;
+        public RelayCommand SaveCommand
+        {
+            get
+            {
+                return saveCommand ??
+                (saveCommand = new RelayCommand(obj =>
+                {
+                    if (dialogWindow != null)
+                    {
+                        dialogWindow.DialogResult = true;
+                    }
+                }));
+            }
+        }
 
+        private RelayCommand cancelCommand;
+        public RelayCommand CancelCommand
+        {
+            get
+            {
+                return cancelCommand ??
+                (cancelCommand = new RelayCommand(obj =>
+                {
+                    if (dialogWindow != null)
+                    {
+                        dialogWindow.DialogResult = false;
+                    }
+                }));
+            }
+        }
         public PersonDpo ShallowCopy()
         {
             return (PersonDpo)this.MemberwiseClone();

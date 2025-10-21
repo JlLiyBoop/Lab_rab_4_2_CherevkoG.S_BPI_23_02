@@ -4,15 +4,7 @@
         Title="Управление персоналом" Height="300" Width="400"
         WindowStartupLocation="CenterScreen"
         Style="{DynamicResource CustomWindowStyle}">
-    <Window.Resources>
-        <RoutedUICommand x:Key="OpenEmployeeCommand" Text="Сотрудники"/>
-        <RoutedUICommand x:Key="OpenRoleCommand" Text="Должности"/>
-    </Window.Resources>
 
-    <Window.CommandBindings>
-        <CommandBinding Command="{StaticResource OpenEmployeeCommand}" Executed="OpenEmployee_Executed"/>
-        <CommandBinding Command="{StaticResource OpenRoleCommand}" Executed="OpenRole_Executed"/>
-    </Window.CommandBindings>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Данные">
@@ -22,11 +14,11 @@
                 <MenuItem Header="Выход" Command="{Binding ExitCommand}"/>
             </MenuItem>
             <MenuItem Header="Темы">
-                    <MenuItem Header="Доступные темы" IsEnabled="False"/>
-                <MenuItem Header="Светлая" Command="{Binding ChangeThemeCommand}" Uid="0"/>
-                <MenuItem Header="Темная" Command="{Binding ChangeThemeCommand}" Uid="1"/>
-                </MenuItem>
-            </Menu>
+                <MenuItem Header="Доступные темы" IsEnabled="False"/>
+                <MenuItem Header="Светлая" Command="{Binding ChangeThemeCommand}" CommandParameter="0"/>
+                <MenuItem Header="Темная" Command="{Binding ChangeThemeCommand}" CommandParameter="1"/>
+            </MenuItem>
+        </Menu>
 
         <Grid>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" 

@@ -10,7 +10,12 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.View
             InitializeComponent();
             DataContext = new DialogViewModel(this);
         }
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+        }
     }
+
 
     public class DialogViewModel
     {

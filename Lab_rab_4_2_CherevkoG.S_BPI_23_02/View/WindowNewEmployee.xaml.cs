@@ -12,8 +12,14 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.View
         public WindowNewEmployee()
         {
             InitializeComponent();
+            var viewModel = new EmployeeDialogViewModel(this);
+            viewModel.LoadRoles();
             DataContext = new EmployeeDialogViewModel(this);
             Loaded += WindowNewEmployee_Loaded;
+        }
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
         }
 
         private void WindowNewEmployee_Loaded(object sender, RoutedEventArgs e)

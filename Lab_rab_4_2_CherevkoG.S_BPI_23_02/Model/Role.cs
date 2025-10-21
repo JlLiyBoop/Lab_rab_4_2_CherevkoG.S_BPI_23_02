@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
+using Lab_rab_4_2_CherevkoG.S_BPI_23_02.Helper;
 
 
 namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.Model
@@ -7,6 +9,7 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.Model
     public class Role : INotifyPropertyChanged
     {
         private string nameRole;
+        private Window dialogWindow;
 
         public int Id { get; set; }
 
@@ -21,13 +24,46 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.Model
         }
 
         public Role() { }
-
+        public void SetDialogWindow(Window window)
+        {
+            dialogWindow = window;
+        }
         public Role(int id, string nameRole)
         {
             this.Id = id;
             this.NameRole = nameRole;
         }
+        private RelayCommand saveCommand;
+        public RelayCommand SaveCommand
+        {
+            get
+            {
+                return saveCommand ??
+                (saveCommand = new RelayCommand(obj =>
+                {
+                    if (dialogWindow != null)
+                    {
+                        dialogWindow.DialogResult = true;
+                    }
+                }));
+            }
+        }
 
+        private RelayCommand cancelCommand;
+        public RelayCommand CancelCommand
+        {
+            get
+            {
+                return cancelCommand ??
+                (cancelCommand = new RelayCommand(obj =>
+                {
+                    if (dialogWindow != null)
+                    {
+                        dialogWindow.DialogResult = false;
+                    }
+                }));
+            }
+        }
         public Role ShallowCopy()
         {
             return (Role)this.MemberwiseClone();

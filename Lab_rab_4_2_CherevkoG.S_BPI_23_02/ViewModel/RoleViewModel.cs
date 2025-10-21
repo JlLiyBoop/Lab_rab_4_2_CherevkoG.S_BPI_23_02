@@ -79,6 +79,7 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.ViewModel
                         int maxIdRole = MaxId() + 1;
                         Role role = new Role { Id = maxIdRole };
                         wnRole.DataContext = role;
+                        role.SetDialogWindow(wnRole);
 
                         if (wnRole.ShowDialog() == true)
                         {
@@ -108,6 +109,7 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.ViewModel
                         Role tempRole = new Role();
                         tempRole = role.ShallowCopy();
                         wnRole.DataContext = tempRole;
+                        tempRole.SetDialogWindow(wnRole);
 
                         if (wnRole.ShowDialog() == true)
                         {

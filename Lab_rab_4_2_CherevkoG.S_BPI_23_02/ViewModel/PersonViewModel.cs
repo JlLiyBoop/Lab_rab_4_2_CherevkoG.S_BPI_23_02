@@ -102,6 +102,7 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.ViewModel
                         };
 
                         wnPerson.DataContext = per;
+                        per.SetDialogWindow(wnPerson);
 
                         if (wnPerson.ShowDialog() == true)
                         {
@@ -138,6 +139,7 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.ViewModel
                         PersonDpo tempPerson = new PersonDpo();
                         tempPerson = personDpo.ShallowCopy();
                         wnPerson.DataContext = tempPerson;
+                        tempPerson.SetDialogWindow(wnPerson);
 
                         if (wnPerson.ShowDialog() == true)
                         {
