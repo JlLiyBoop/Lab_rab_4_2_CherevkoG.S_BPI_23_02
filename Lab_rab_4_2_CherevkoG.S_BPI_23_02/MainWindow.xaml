@@ -4,7 +4,6 @@
         Title="Управление персоналом" Height="300" Width="400"
         WindowStartupLocation="CenterScreen"
         Style="{DynamicResource CustomWindowStyle}">
-
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Данные">
@@ -15,8 +14,8 @@
             </MenuItem>
             <MenuItem Header="Темы">
                 <MenuItem Header="Доступные темы" IsEnabled="False"/>
-                <MenuItem Header="Светлая" Command="{Binding ChangeThemeCommand}" CommandParameter="0"/>
-                <MenuItem Header="Темная" Command="{Binding ChangeThemeCommand}" CommandParameter="1"/>
+                <MenuItem Header="Светлая" Command="{Binding Source={x:Static Application.Current}, Path=ChangeThemeCommand}" CommandParameter="0"/>
+                <MenuItem Header="Темная" Command="{Binding Source={x:Static Application.Current}, Path=ChangeThemeCommand}" CommandParameter="1"/>
             </MenuItem>
         </Menu>
 

@@ -49,29 +49,5 @@ namespace Lab_rab_4_2_CherevkoG.S_BPI_23_02.ViewModel
                 }));
             }
         }
-
-        private RelayCommand changeThemeCommand;
-        public RelayCommand ChangeThemeCommand
-        {
-            get
-            {
-                return changeThemeCommand ??
-                (changeThemeCommand = new RelayCommand(obj =>
-                {
-                    if (obj is string themeId)
-                    {
-                        switch (int.Parse(themeId))
-                        {
-                            case 0:
-                                ThemesController.SetTheme(ThemesController.ThemeType.Light);
-                                break;
-                            case 1:
-                                ThemesController.SetTheme(ThemesController.ThemeType.Dark);
-                                break;
-                        }
-                    }
-                }));
-            }
-        }
     }
 }
